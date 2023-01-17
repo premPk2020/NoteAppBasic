@@ -1,11 +1,13 @@
 package com.orange.noteappbasic.screen
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,11 +24,11 @@ import androidx.compose.ui.unit.dp
 import com.orange.noteappbasic.components.NoteButton
 import com.orange.noteappbasic.components.NoteInputText
 import com.orange.noteappbasic.components.TopAppBar
-import com.orange.noteappbasic.data.NotesDataSource
 import com.orange.noteappbasic.model.Note
 import java.time.format.DateTimeFormatter
 
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun NoteScreen(
     notes: List<Note>,
@@ -62,7 +64,7 @@ fun NoteScreen(
                     if (text.all { char ->
                             char.isLetter() || char.isWhitespace()
                         }) title = text
-                })
+                },)
                 NoteInputText(label = "Add note", maxLine = 4, text = note, onTextChange = { text ->
                     if (text.all { char ->
                             char.isLetter() || char.isWhitespace()

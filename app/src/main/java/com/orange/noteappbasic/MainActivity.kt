@@ -3,15 +3,15 @@ package com.orange.noteappbasic
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-
-import com.orange.noteappbasic.model.Note
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.orange.noteappbasic.screen.NoteScreen
+import com.orange.noteappbasic.screen.NoteViewModel
 import com.orange.noteappbasic.ui.theme.NoteAppBasicTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,20 +25,19 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val notes = remember {
-                        mutableStateListOf<Note>()
-                    }
-                    NoteScreen(
-                        notes = notes,
-                        onAddNote = {
-                            notes.add(it)
-                        },
-                        onRemoveNote = {
-                            notes.remove(it)
-                        })
+                    val noteViewModel:NoteViewModel by viewModels()
+                    NotesApp(noteViewModel = noteViewModel)
                 }
             }
         }
     }
 }
 
+@Composable
+fun NotesApp(noteViewModel: NoteViewModel = viewModel()) {
+    val notesList = noteViewModel.getAllNotes()
+    NoteScreen(
+        notes = notesList,
+        onAddNote = { note -> noteViewModel.addNote(note) },
+        onRemoveNote = { note -> noteViewModel.removeNote(note) })
+}
