@@ -1,5 +1,6 @@
 package com.orange.noteappbasic
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.orange.noteappbasic.screen.NoteScreen
@@ -27,6 +29,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    //val noteViewModel= viewModel<NoteViewModel>()
                     val noteViewModel:NoteViewModel by viewModels()
                     NotesApp(noteViewModel = noteViewModel)
                 }
@@ -35,11 +38,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun NotesApp(noteViewModel: NoteViewModel = viewModel()) {
-    val notesList = noteViewModel.getAllNotes()
+fun NotesApp(noteViewModel: NoteViewModel) {
+    val notesList = noteViewModel.noteList.collectAsState().value
     NoteScreen(
         notes = notesList,
         onAddNote = { note -> noteViewModel.addNote(note) },
-        onRemoveNote = { note -> noteViewModel.removeNote(note) })
+        onRemoveNote = { note -> noteViewModel.deleteNote(note) })
 }

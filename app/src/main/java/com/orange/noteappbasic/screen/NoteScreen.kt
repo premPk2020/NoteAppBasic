@@ -24,6 +24,7 @@ import com.orange.noteappbasic.components.NoteButton
 import com.orange.noteappbasic.components.NoteInputText
 import com.orange.noteappbasic.components.TopAppBar
 import com.orange.noteappbasic.model.Note
+import com.orange.noteappbasic.util.formatDate
 import java.time.format.DateTimeFormatter
 
 
@@ -125,10 +126,10 @@ fun NoteRow(
         ) {
             Text(text = note.title, style = MaterialTheme.typography.subtitle2)
             Text(text = note.desc, style = MaterialTheme.typography.subtitle1)
-//            Text(
-//                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
-//                style = MaterialTheme.typography.caption
-//            )
+            Text(
+                text = formatDate(note.entryDate),
+                style = MaterialTheme.typography.caption
+            )
         }
     }
 }
