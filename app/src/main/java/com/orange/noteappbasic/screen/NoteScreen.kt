@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -126,10 +125,10 @@ fun NoteRow(
         ) {
             Text(text = note.title, style = MaterialTheme.typography.subtitle2)
             Text(text = note.desc, style = MaterialTheme.typography.subtitle1)
-            Text(
-                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
-                style = MaterialTheme.typography.caption
-            )
+//            Text(
+//                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
+//                style = MaterialTheme.typography.caption
+//            )
         }
     }
 }
